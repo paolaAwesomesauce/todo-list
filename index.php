@@ -16,4 +16,22 @@
 	</form>
 	</div>
 </body>
+<script type="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+//calling the and task function 
+	add_task(); 
+
+	function add_task(){
+		$('.add-new-task').submit(function(){
+			var new_task = $('add-new-task input[name-task]').val();
+			if (new_task != '') {
+				$.post('includes/add-task.php', { task: new_task}, function(delta){
+					$(('add-new-task input[name=new-task]').val();
+						$(data).appendTo('task-list ul').hide().fadeIn();
+				})
+			}
+			return false;
+		});
+	}
+</script>
 </html>
