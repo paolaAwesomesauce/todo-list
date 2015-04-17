@@ -3,6 +3,8 @@
 <head>
 	<title>Simple To-Do List</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="reset.css">
 </head>
 <body>
 	<div class="wrap">
@@ -28,7 +30,7 @@
 	</form>
 	</div>
 </body>
-<script type="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 //calling the and task function 
 	add_task(); 
