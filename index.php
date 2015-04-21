@@ -3,22 +3,26 @@
 <head>
 	<title>Simple To-Do List</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="reset.css">
+	
 </head>
 <body>
 	<div class="wrap">
 		<div class="task-list">
 			<ul>
-				<?php require("includes/connect.php");$mysqli = new mysqli('localhost', 'root', 'root', 'task');
+				<?php require("includes/connect.php");
+				$mysqli = new mysqli('localhost', 'root', 'root', 'todo');
 					$query = "SELECT * FROM tasks ORDER BY date ASC, time ASC";
 					if ($result = $mysqli->query($query)) {
+
 					 	$numrows = $result->num_rows;
-					 	if ($numrows->0) {
+					 	if ($numrows>0) {
 					 		while ($row = $result->fetch_assoc()) {
 					 			$task_id = $row['id'];
-					 			$task_id = $row["task"];
-					 			echo '<li><span> '.task_name' </span> <img id=" '$task_id. '" class = delete-button width="10px" src="images/close.svg"/> </li>' ;
+					 			$task_name = $row['task'];
+
+					 			echo '<li>
+					 			<span>' .$task_name. '</span> 
+					 			<img id="'.$task_id.'" class = "delete-button" width="10px" src="images/close.svg"/> </li>' ;
 					 		}
 					 	}
 					 } 
@@ -30,19 +34,20 @@
 	</form>
 	</div>
 </body>
-<script type="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 //calling the and task function 
 	add_task(); 
 
 	function add_task(){
 		$('.add-new-task').submit(function(){
-			var new_task = $('add-new-task input[name-task]').val();
-			if (new_task != '') {
-				$.post('includes/add-task.php', { task: new_task}, function(delta){
+			var new_task = $('.add-new-task input[name=new-task]').val();
+
+			if(new_task != '') {
+				$.post('includes/add-task.php', {task: new_task}, function(data){
 					$('add-new-task input[name=new-task]').val();
-						$(data).appendTo('task-list ul').hide().fadeIn();
-				})
+						$(data).appendTo('.task-list ul').hide().fadeIn();
+				});
 			}
 			return false;
 		});
@@ -52,11 +57,11 @@
 		var current_element = $(this);
 		var task_id = $(this).attr('id');
 
-		$.post('includes/delete-task.php', {id: task_id, function(){
+		$.post('includes/delete-task.php', {id: task_id}, function(){
 			current_element.parent().fadeOut("fast", function(){
 				$(this).remove();
-			})
-		})
-	})
+			});
+		});
+	});
 </script>
 </html>
